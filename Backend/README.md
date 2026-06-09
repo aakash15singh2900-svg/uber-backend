@@ -113,12 +113,19 @@ NODE_ENV=development
 Backend/
 ├── models/                 # Database schemas
 │   ├── user.model.js       # User schema definition
+│   ├── captain.js          # Captain/Driver schema definition
 │   └── blacklist.js        # Token blacklist model
 ├── routes/                 # API routes
-│   └── user.routes.js      # User authentication routes
+│   ├── user.routes.js      # User authentication routes
+│   └── captain.routes.js   # Captain/Driver routes
 ├── controllers/            # Business logic (handler functions)
+│   ├── user.controller.js  # User controller
+│   └── captain.controller.js # Captain controller
 ├── middlewares/            # Custom middleware
+│   └── authmiddleware.js   # JWT authentication middleware
 ├── services/               # Service layer (utilities)
+│   ├── user.services.js    # User service
+│   └── captainservices.js  # Captain service
 ├── db/                     # Database configuration
 │   └── db.js               # MongoDB connection
 ├── app.js                  # Express app setup
@@ -143,6 +150,17 @@ Backend/
 | `POST` | `/logout` | User logout | ✅ Yes |
 | `GET` | `/profile` | Get user profile | ✅ Yes |
 | `PUT` | `/profile` | Update user profile | ✅ Yes |
+
+#### Captain Routes (`/captains`)
+
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| `POST` | `/register` | Register a new captain | ❌ No |
+| `POST` | `/login` | Captain login | ❌ No |
+| `POST` | `/logout` | Captain logout | ✅ Yes |
+| `GET` | `/profile` | Get captain profile | ✅ Yes |
+| `PUT` | `/profile` | Update captain profile | ✅ Yes |
+| `GET` | `/available` | Get available captains | ✅ Yes |
 
 #### Example Requests:
 
@@ -172,6 +190,41 @@ Content-Type: application/json
 **Get Profile (Protected):**
 ```bash
 GET /api/users/profile
+Authorization: Bearer <jwt_token>
+```
+
+**Register Captain:**
+```bash
+POST /api/captains/register
+Content-Type: application/json
+
+{
+  "fullname": "Captain Jane",
+  "email": "captain@example.com",
+  "password": "securepassword123",
+  "vehicle": {
+    "color": "Black",
+    "plate": "ABC123",
+    "capacity": 4,
+    "vehicleType": "car"
+  }
+}
+```
+
+**Login Captain:**
+```bash
+POST /api/captains/login
+Content-Type: application/json
+
+{
+  "email": "captain@example.com",
+  "password": "securepassword123"
+}
+```
+
+**Get Captain Profile (Protected):**
+```bash
+GET /api/captains/profile
 Authorization: Bearer <jwt_token>
 ```
 
