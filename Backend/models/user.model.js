@@ -46,7 +46,7 @@ userSchema.methods.generateAuthToken = function () {
     }
 
     return jwt.sign(
-        { id: this._id, role: this.role },
+        { id: this._id},
         process.env.JWT_SECRET,
         { expiresIn: "24h" }
     );

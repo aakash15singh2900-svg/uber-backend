@@ -30,11 +30,6 @@ router.post(
     body('password')
       .isLength({ min: 6 })
       .withMessage('Password must be at least 6 characters long'),
-
-    // ✅ role validation (IMPORTANT)
-    body('role')
-      .isIn(['rider', 'driver'])
-      .withMessage('Role must be either rider or driver')
   ],
 
   userController.register
