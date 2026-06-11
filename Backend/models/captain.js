@@ -39,10 +39,6 @@ const captainSchema = new mongoose.Schema({
             required: true
         },
 
-        model: {
-            type: String,
-        },
-
         plateNumber: {
             type: String,
             required: true,
